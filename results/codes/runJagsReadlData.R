@@ -15,9 +15,12 @@ data <- ireland
 levels(data$Genotype) <-(1:length(levels(data$Genotype)))
 levels(data$Environment) <- 1:length(levels(ireland$Environment))
 
+g_types <- c("g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8",
+             "g9", "g10", "g11")
 
 bammitModelRealData <- bammitJagsRealData(
-  data = ireland, mmu = 90, smu = 10, stheta = 10, a = 0.1, b = 0.1,
+  data = ireland %>% filter(Genotype  %in% g_types),
+  mmu = 90, smu = 10, stheta = 10, a = 0.1, b = 0.1,
   nthin = 1, nburnin = 100, Q = 2
 )
 #save(bammitModelRealData, file = "Real data/bammitRealResults.RData")
